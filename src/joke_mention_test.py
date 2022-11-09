@@ -2,6 +2,9 @@ import os
 import time
 import re
 from slackclient import SlackClient
+import pandas as pd
+import random
+
 
 slack_client = SlackClient(os.environ.get('SLACK_BOT_TOKEN'))
 starterbot_id = None
@@ -16,7 +19,7 @@ def parse_bot_commands(slack_events):
     for event in slack_events:
         if event["type"] == "message" and not "subtype" in event:  # message type의 이벤트에서만 command 찾는다.
             user_id, message = parse_direct_mention(event["text"])
-            if user_id == starterbot_id:  # 멘션된 userID와 아존애 저장한 bot의 아이디가 같을 경우
+            if user_id == starterbot_id:  # 멘션된 userID와 기존애 저장한 bot의 아이디가 같을 경우
                 return message, event["channel"]  # ChannelID와 message return
     return None, None
 
@@ -50,6 +53,21 @@ def handle_command(command, channel):
         text=response or default_response
     )
 
+def print_message():
+    #파일 경로 설정
+    Location = "E:\cloudclub"
+    File ="Ajae.xlsx"
+
+    # 추출 행, 열 선언
+    Row = 6
+    Column =1
+
+    # 추출 및 변환 코드
+    data_pd = pd.read_excel('{}/{}'.format(Location,File), header = None, index_col=None,names=None)
+    data_np = pd.DataFrame.to_numpy(data_pd)
+    message = data_np[random.randint(0, Row),Column-1]
+
+    return message
 
 if __name__ == "__main__":
     if slack_client.rtm_connect(with_team_state=False):
