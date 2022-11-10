@@ -6,7 +6,7 @@ import pandas as pd
 import random
 
 
-slack_client = SlackClient(os.environ.get('SLACK_BOT_TOKEN'))
+slack_client = SlackClient(os.environ.get('xoxb-4314415381431-4358739358161-1q3dzNN5jplCPTNzfHqXbC1B'))
 starterbot_id = None
 
 # constants
@@ -44,7 +44,7 @@ def handle_command(command, channel):
     response = None
     # 아재 개그 추출 함수 넣기 !!
     if command.startswith(EXAMPLE_COMMAND):
-        response = "안뇽안뇽"
+        response = print_message()
 
     # channel에 메세지 보내기
     slack_client.api_call(
@@ -58,14 +58,14 @@ def print_message():
     Location = "E:\cloudclub"
     File ="Ajae.xlsx"
 
-    # 추출 행, 열 선언
-    Row = 6
-    Column =1
-
     # 추출 및 변환 코드
     data_pd = pd.read_excel('{}/{}'.format(Location,File), header = None, index_col=None,names=None)
     data_np = pd.DataFrame.to_numpy(data_pd)
-    message = data_np[random.randint(0, Row),Column-1]
+
+    # 추출 행, 열 선언
+    Row = len(data_np)
+    Column =1
+    message = data_np[random.randint(0, Row-1),Column-1]
 
     return message
 
@@ -81,5 +81,5 @@ if __name__ == "__main__":
                 handle_command(command, channel)  # 호출될 경우 무엇을 할지 결정하는 함수
             time.sleep(RTM_READ_DELAY)
     else:
-        print(os.environ.get('SLACK_BOT_TOKEN')) # 환경변수 설정 확인
+        print(os.environ.get('xoxb-4314415381431-4358739358161-1q3dzNN5jplCPTNzfHqXbC1B')) # 환경변수 설정 확인
         print("Connection failed. Exception traceback printed above.")

@@ -3,6 +3,7 @@ import json
 import numpy as np
 import pandas as pd
 import random
+import openpyxl
 
 
 token ="xoxb-4314415381431-4322376120582-g87bezhTuZR8ulV1ElNmupip"
@@ -30,14 +31,14 @@ def print_message():
     Location = "E:\cloudclub"
     File ="Ajae.xlsx"
 
-    # 추출 행, 열 선언
-    Row = 6
-    Column =1
-
     # 추출 및 변환 코드
     data_pd = pd.read_excel('{}/{}'.format(Location,File), header = None, index_col=None,names=None)
     data_np = pd.DataFrame.to_numpy(data_pd)
-    message = data_np[random.randint(0, Row),Column-1]
+
+    # 추출 행, 열 선언
+    Row = len(data_np)
+    Column =1
+    message = data_np[random.randint(0, Row-1),Column-1]
 
     return message
 
