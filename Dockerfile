@@ -8,5 +8,5 @@ COPY . ./
 
 RUN pip3 install -r requirements.txt
 # slackbot token 환경 변수 설정
-ENV SLACK_BOT_TOKEN="xoxb-2360585743954-4334671320275-EvGWbw5w4wg98wBzBd9BdwMA"
+ENV SLACK_BOT_TOKEN=.
 CMD ["python3","joke_mention_test.py"]
