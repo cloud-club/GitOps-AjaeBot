@@ -1,7 +1,7 @@
 name: Create and publish a Docker image
 
 on:
-  push:
+  push: # PUSH & PR merge 될 경우
     branches: ['juya'] # juya branch 로 push 발생할 경우
 
 env:
@@ -31,12 +31,13 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          flavor: latest=true
+          flavor: latest=true # latest tag 달기
 
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
           context: .
+          file: Dockerfile # repository 기준 도커파일 위치
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.meta.outputs.tags }} ㄹ
           labels: ${{ steps.meta.outputs.labels }}
