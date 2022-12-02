@@ -9,7 +9,6 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  VERSION: 1.0.0
 
 jobs:
   build-and-push-image:
@@ -34,10 +33,11 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          flavor: |
+            latest=auto
           tags: |
             type=schedule
-            type=ref,event=branch
-            type=raw,value={{branch}}-${{github.run_number}}
+            type=raw,value={{branch}}-v${{github.run_number}}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
