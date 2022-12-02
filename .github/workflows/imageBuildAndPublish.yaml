@@ -2,8 +2,11 @@ name: Create and publish a Docker image
 
 on:
   push: # PUSH & PR merge 될 경우
-    branches: ["main"] # juya branch 로 push 발생할 경우
+    branches: ["juya"] # juya branch 로 push 발생할 경우
   workflow_dispatch:
+    inputs:
+      tags:
+        description: "Test workflow"
 
 env:
   REGISTRY: ghcr.io
