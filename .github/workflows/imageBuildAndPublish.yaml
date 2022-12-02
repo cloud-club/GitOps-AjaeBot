@@ -44,5 +44,5 @@ jobs:
           context: .
           file: Dockerfile # repository 기준 도커파일 위치
           push: true
-          tags: ${{ steps.meta.outputs.tags }}/${{GITHUB_RUN_NUMBER}}
+          tags: ${{ steps.meta.outputs.tags }}/${{ github.run_number }}
           labels: ${{ steps.meta.outputs.labels }}
