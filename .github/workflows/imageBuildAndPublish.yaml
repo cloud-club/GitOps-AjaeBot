@@ -34,9 +34,10 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          # tags: |
-          #   type=semver,pattern={{version}}
-          #   type=semver,pattern={{version}},value=v1.0.0
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=raw,value={{branch}}-${{github.run_number}}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
@@ -44,5 +45,5 @@ jobs:
           context: .
           file: Dockerfile # repository 기준 도커파일 위치
           push: true
-          tags: ${{ steps.meta.outputs.tags }}/${{ github.run_number }}
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
