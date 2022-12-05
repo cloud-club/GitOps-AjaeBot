@@ -45,3 +45,4 @@ jobs:
           file: Dockerfile # repository 기준 도커파일 위치
           push: true
           tags: ${{ steps.commit.outputs.short }}
+          labels: ${{ steps.meta.outputs.labels }}
