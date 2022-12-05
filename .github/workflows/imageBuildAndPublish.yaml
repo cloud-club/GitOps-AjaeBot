@@ -28,6 +28,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Get tag with commit-hash
+        id: commit
+        uses: pr-mpt/actions-commit-hash@v2
+
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v4
@@ -35,10 +39,6 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             ${{ steps.commit.outputs.short }}
-
-      - name: Get tag with commit-hash
-        id: commit
-        uses: pr-mpt/actions-commit-hash@v2
 
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
