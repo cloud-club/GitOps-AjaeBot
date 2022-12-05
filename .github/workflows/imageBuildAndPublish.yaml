@@ -39,9 +39,10 @@ jobs:
       #       type=schedule
       #       type=raw,value={{branch}}-v${{github.run_number}}
 
-      - id: commit
+      - name: Extract tag with commit-hash
+        id: commit
         uses: pr-mpt/actions-commit-hash@v2
-
+      - uses: docker/setup-buildx-action@v1
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
