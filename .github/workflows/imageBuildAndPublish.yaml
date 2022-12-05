@@ -33,6 +33,8 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            ${{ steps.commit.outputs.short }}
 
       - name: Get tag with commit-hash
         id: commit
@@ -44,5 +46,5 @@ jobs:
           context: .
           file: Dockerfile # repository 기준 도커파일 위치
           push: true
-          tags: ${{ steps.commit.outputs.short }}
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
