@@ -37,7 +37,8 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          flavors: true
+          flavor: |
+            latest=auto
           tags: |
             sha-${{ steps.commit.outputs.short }}
 
