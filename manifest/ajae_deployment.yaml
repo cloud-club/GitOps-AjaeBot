@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ajae-deployment
+  labels:
+    app: ajae-bot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ajae-bot
+  template:
+    metadata:
+      labels:
+        app: ajae-bot
+    spec: # Pod spec
+      containers:
+      - name: ajae-container
+        image: ghcr.io/cloud-club/gitops-ajaebot # application image
+        env: # slackbot token 환경 변수로 넣어주기
+          - name: SLACK_BOT_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: juyoung-slack
+                key: token
+                optional: false # 반드시 있어야 실행
+      imagePullSecrets: # image pull 받기 위한 github token file (secret)
+      - name: juyoung-github # github credentials 로 생성한 secret
+
