@@ -42,6 +42,7 @@ jobs:
             type=semver,pattern={{version}}
 
       - name: Build and push Docker image
+        id: build
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
           context: .
@@ -49,3 +50,6 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+      - name: build result
+        run :
+          echo ${{ steps.build.outputs }}
