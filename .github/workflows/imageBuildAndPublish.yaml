@@ -50,9 +50,12 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-      - name: build result
+      - name: build output image id
         run :
-          echo |
-          ${{ steps.build.outputs.imageid}}
-          ${{ steps.build.outputs.digest}}
-          ${{ steps.build.outputs.metadata}}
+          echo ${{ steps.build.outputs.imageid}}
+      - name: build output image id
+          run:
+            echo   ${{ steps.build.outputs.digest}}
+      - name: build output image id
+          run:
+            echo  ${{ steps.build.outputs.metadata}}
