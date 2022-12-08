@@ -52,4 +52,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
       - name: build result
         run :
-          echo ${{ steps.build.outputs }}
+          echo |
+          ${{ steps.build.outputs.imageid}
+          ${{ steps.build.outputs.digest}
+          ${{ steps.build.outputs.metadata}
