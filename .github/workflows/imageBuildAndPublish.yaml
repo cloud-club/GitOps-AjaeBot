@@ -50,12 +50,12 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-      - name: build output image id
-        run :
-          echo ${{ steps.build.outputs.imageid}}
-      - name: build output digest
-        run:
-          echo ${{ steps.build.outputs.digest}}
-      - name: build output metadata
-        run:
-          echo ${{ steps.build.outputs.metadata}}
+
+      - name: Get SDK Version from config
+        id: lookupSdkVersion
+        uses: mikefarah/yq@master
+        with:
+          yq write \
+          --inplace https://github.com/cloud-club/GitOps-AjaeBot-Config/blob/2e86b2f988600da353604e08ff9bd09e85abdf6a/ajae_deployment.yaml \
+          '{spec.template.spec.containers(name==myappname).image}' \
+          gcr.io//myappname:${{steps.build.outputs.digest}}
