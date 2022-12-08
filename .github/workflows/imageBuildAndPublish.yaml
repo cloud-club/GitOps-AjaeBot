@@ -53,6 +53,6 @@ jobs:
       - name: build result
         run :
           echo |
-          ${{ steps.build.outputs.imageid}
-          ${{ steps.build.outputs.digest}
-          ${{ steps.build.outputs.metadata}
+          ${{ steps.build.outputs.imageid}}
+          ${{ steps.build.outputs.digest}}
+          ${{ steps.build.outputs.metadata}}
