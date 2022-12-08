@@ -54,8 +54,8 @@ jobs:
         run :
           echo ${{ steps.build.outputs.imageid}}
       - name: build output digest
-          run:
-            echo ${{ steps.build.outputs.digest}}
+        run:
+          echo ${{ steps.build.outputs.digest}}
       - name: build output metadata
           run:
             echo ${{ steps.build.outputs.metadata}}
