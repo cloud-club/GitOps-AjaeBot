@@ -57,5 +57,5 @@ jobs:
         run:
           echo ${{ steps.build.outputs.digest}}
       - name: build output metadata
-          run:
-            echo ${{ steps.build.outputs.metadata}}
+        run:
+          echo ${{ steps.build.outputs.metadata}}
