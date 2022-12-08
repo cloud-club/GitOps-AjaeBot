@@ -34,12 +34,13 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           # 가장 최신 image 에 latest tag 달기
-          flavor: |
-            latest=true
+#          flavor: |
+#            latest=true
           # Git short commit, use git version tag
           tags: |
             type=sha
             type=semver,pattern={{version}}
+     
 
       - name: Build and push Docker image
         id: build
@@ -50,12 +51,16 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+      - run: |
+          echo 'NEW_VERSION'=${{ steps.meta.outputs.tags }} >> $GITHUB_ENV
 
-      - name: Get SDK Version from config
-        id: lookupSdkVersion
-        uses: mikefarah/yq@master
+
+      - name: testing/repo-image
+        uses: gitops-tools/image-updater
         with:
-          yq write \
-          --inplace https://github.com/cloud-club/GitOps-AjaeBot-Config/blob/2e86b2f988600da353604e08ff9bd09e85abdf6a/ajae_deployment.yaml \
-          '{spec.template.spec.containers(name==myappname).image}' \
-          gcr.io//myappname:${{steps.build.outputs.digest}}
+          sourceRepo: juyoung810/slack-bot-test
+          sourceBranch: juya
+          filePath: ${{ steps.meta.outputs.tags }}
+          updateKey: spec.template.spec.image
+          branchGenerateName: repo-imager-
+#          tagMatch: "^main-.*"
