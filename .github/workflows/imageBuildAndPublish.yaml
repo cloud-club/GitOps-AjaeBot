@@ -61,7 +61,7 @@ jobs:
             git clone https://user:$GITHUB_TOKEN@github.com/juyoung810/slack-bot-config
             
             cd slack-bot-config
-            yq '.spec.template.spec.containers.[0].image = ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.tags }}' ajae_deployment.yaml
+            yq '.spec.template.spec.containers.[0].image = ${{ steps.meta.outputs.tags }}' ajae_deployment.yaml
             
             git checkout -b ${{ github.actor }}-${{ steps.meta.outputs.tags }}
             git add .
