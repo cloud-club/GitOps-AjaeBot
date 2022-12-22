@@ -56,7 +56,7 @@ jobs:
         uses: mikefarah/yq@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
+        cmd: |
           git clone https://user:$GITHUB_TOKEN@github.com/juyoung810/slack-bot-config
           
           cd slack-bot-config
