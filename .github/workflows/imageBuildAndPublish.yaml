@@ -51,16 +51,22 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-      - run: |
-          echo 'NEW_VERSION'=${{ steps.meta.outputs.tags }} >> $GITHUB_ENV
 
-
-      - name: testing/repo-image
-        uses: gitops-tools/image-updater
-        with:
-          sourceRepo: juyoung810/slack-bot-test
-          sourceBranch: juya
-          filePath: ${{ steps.meta.outputs.tags }}
-          updateKey: spec.template.spec.image
-          branchGenerateName: repo-imager-
-#          tagMatch: "^main-.*"
+      - name: Change config repo values.yaml
+        uses: mikefarah/yq@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git clone https://user:$GITHUB_TOKEN@github.com/juyoung810/slack-bot-config
+          
+          cd slack-bot-config
+          yq '.spec.template.spec.containers.[0].image = ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.tags }}' ajae_deployment.yaml
+          
+          git checkout -b ${{ github.actor }}-${{ steps.meta.outputs.tags }}
+          git add .
+          git commit -m "Change Image version"
+          
+          git remote -v
+          
+          git push --set-upstream origin ${{ github.actor }}-${{ steps.meta.outputs.tags }}
+          git push --set-upstream https://user:$GITHUB_TOKEN@github.com/juyoung810/slack-bot-config ${{ github.actor }}-${{ steps.meta.outputs.tags }}
