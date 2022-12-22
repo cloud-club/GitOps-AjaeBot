@@ -56,17 +56,18 @@ jobs:
         uses: mikefarah/yq@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        cmd: |
-          git clone https://user:$GITHUB_TOKEN@github.com/juyoung810/slack-bot-config
-          
-          cd slack-bot-config
-          yq '.spec.template.spec.containers.[0].image = ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.tags }}' ajae_deployment.yaml
-          
-          git checkout -b ${{ github.actor }}-${{ steps.meta.outputs.tags }}
-          git add .
-          git commit -m "Change Image version"
-          
-          git remote -v
-          
-          git push --set-upstream origin ${{ github.actor }}-${{ steps.meta.outputs.tags }}
-          git push --set-upstream https://user:$GITHUB_TOKEN@github.com/juyoung810/slack-bot-config ${{ github.actor }}-${{ steps.meta.outputs.tags }}
+        with:
+          cmd: |
+            git clone https://user:$GITHUB_TOKEN@github.com/juyoung810/slack-bot-config
+            
+            cd slack-bot-config
+            yq '.spec.template.spec.containers.[0].image = ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.tags }}' ajae_deployment.yaml
+            
+            git checkout -b ${{ github.actor }}-${{ steps.meta.outputs.tags }}
+            git add .
+            git commit -m "Change Image version"
+            
+            git remote -v
+            
+            git push --set-upstream origin ${{ github.actor }}-${{ steps.meta.outputs.tags }}
+            git push --set-upstream https://user:$GITHUB_TOKEN@github.com/juyoung810/slack-bot-config ${{ github.actor }}-${{ steps.meta.outputs.tags }}
