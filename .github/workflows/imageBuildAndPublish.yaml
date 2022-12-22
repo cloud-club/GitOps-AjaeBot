@@ -72,10 +72,10 @@ jobs:
 
       - name: push to config repo
         run: |
-          git checkout -b ${{ github.actor }}-${{ steps.meta.outputs.tags }}
+          git checkout -b ${{ github.actor }}-${{ github.sha }}
           git add .
-          git commit -m "Change Image version"
+          git commit -m "Change Image version to ${{ steps.meta.outputs.tags }}"
           git remote -v
           
           git push --set-upstream origin ${{ github.actor }}-${{ steps.meta.outputs.tags }}
-          git push --set-upstream https://${{ secrets.repoPAT }}@github.com/juyoung810/slack-bot-config ${{ github.actor }}-${{ steps.meta.outputs.tags }}
+          git push --set-upstream https://${{ secrets.repoPAT }}@github.com/juyoung810/slack-bot-config ${{ github.actor }}-${{ github.sha }}
