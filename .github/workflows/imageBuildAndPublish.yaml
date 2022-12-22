@@ -76,7 +76,7 @@ jobs:
           git config --global user.name juyoung810
           
           git checkout -b ${{ github.actor }}-${{ github.sha }}
-          git add .
+          git add ajae_deployment.yaml
           git commit -m "Change Image version to ${{ steps.meta.outputs.tags }}"
           git remote -v
           
