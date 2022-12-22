@@ -58,7 +58,7 @@ jobs:
         env:
           token: ${{ secrets.github_repo }}
         run : |
-           git clone https://$token@github.com/juyoung810/slack-bot-config
+           git clone https://${{env.token}}@github.com/juyoung810/slack-bot-config
            cd slack-bot-config
 
       - name: Change config repo values.yaml
