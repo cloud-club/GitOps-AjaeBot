@@ -68,7 +68,7 @@ jobs:
       - name: Change config repo values.yaml
         uses: mikefarah/yq@master
         with:
-          cmd: yq '.spec.template.spec.containers.[0].image = "${{ steps.meta.outputs.tags }}"' ajae_deployment.yaml
+          cmd: yq -i '.spec.template.spec.containers.[0].image = "${{ steps.meta.outputs.tags }}"' ajae_deployment.yaml
 
       - name: push to config repo
         run: |
