@@ -55,10 +55,10 @@ jobs:
 
       ##### clone
       - name: Check out my other private repo
-          uses: actions/checkout@master
-          with:
-            repository: juyoung810/slack-bot-config
-            token: ${{ secrets.github_repo}}
+        uses: actions/checkout@master
+        with:
+          repository: juyoung810/slack-bot-config
+          token: ${{ secrets.github_repo}}
 
       - name: Change config repo values.yaml
         uses: mikefarah/yq@master
