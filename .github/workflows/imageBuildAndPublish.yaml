@@ -42,21 +42,21 @@ jobs:
             type=semver,pattern={{version}}
      
 
-      - name: Build and push Docker image
-        id: build
-        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
-        with:
-          context: .
-          file: Dockerfile # repository 기준 도커파일 위치
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+#      - name: Build and push Docker image
+#        id: build
+#        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+#        with:
+#          context: .
+#          file: Dockerfile # repository 기준 도커파일 위치
+#          push: true
+#          tags: ${{ steps.meta.outputs.tags }}
+#          labels: ${{ steps.meta.outputs.labels }}
 
 
       ##### clone
       - name: check token
         run : |
-          echo ${{ secrets.github_repo }}
+          echo "${{ secrets.github_repo }}"
 
       - name: Check out my other private repo
         uses: actions/checkout@master
