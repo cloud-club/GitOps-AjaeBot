@@ -70,7 +70,7 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.repoPAT }}
         with:
-          source-directory: "slack-bot-config"
+          source-directory: "."
           destination-github-username: "juyoung810"
           destination-repository-name: "slack-bot-config"
           user-email: kjy2967@naver.com
