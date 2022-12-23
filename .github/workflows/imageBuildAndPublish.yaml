@@ -67,6 +67,8 @@ jobs:
 
       - name: Pushes to config repository
         uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.repoPAT }}
         with:
           source-directory: "slack-bot-config"
           destination-github-username: "juyoung810"
