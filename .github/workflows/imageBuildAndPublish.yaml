@@ -60,15 +60,15 @@ jobs:
           repository: juyoung810/slack-bot-config
           token: ${{ secrets.GITHUB_TOKEN  }}
 
-    - name: Update Image Version in the related HelmChart values.yaml
-        uses: fjogeleit/yaml-update-action@main
-        with:
-          valueFile: 'ajae-chart/values.yaml'
-          propertyPath: 'image.tag'
-          value: ${{ steps.meta.outputs.image.version }}
-          repository: cloudclub/GitOps-AjaeBot-Config
-          branch: ${{ github.actor }}/${{ steps.meta.outputs.image.version }}
-          targetBranch: main
-          createPR: true
-          message: 'Update Image Version to ${{ steps.meta.outputs.image.version }}'
-          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update Image Version in the related HelmChart values.yaml
+          uses: fjogeleit/yaml-update-action@main
+          with:
+            valueFile: 'ajae-chart/values.yaml'
+            propertyPath: 'image.tag'
+            value: ${{ steps.meta.outputs.image.version }}
+            repository: cloudclub/GitOps-AjaeBot-Config
+            branch: ${{ github.actor }}/${{ steps.meta.outputs.image.version }}
+            targetBranch: main
+            createPR: true
+            message: 'Update Image Version to ${{ steps.meta.outputs.image.version }}'
+            token: ${{ secrets.GITHUB_TOKEN }}
