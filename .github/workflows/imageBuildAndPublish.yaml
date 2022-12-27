@@ -66,7 +66,7 @@ jobs:
           valueFile: "ajae-chart/values.yaml"
           propertyPath: "image.tag"
           value: ${{ steps.meta.outputs.image.version }}
-          repository: cloudclub/GitOps-AjaeBot-Config
+          repository: cloud-club/GitOps-AjaeBot-Config
           branch: ${{ github.actor }}/${{ steps.meta.outputs.image.version }}
           targetBranch: main
           createPR: true
