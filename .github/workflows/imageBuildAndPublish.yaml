@@ -57,8 +57,7 @@ jobs:
       - name: Clone and Checkout to config Repository
         uses: actions/checkout@master
         with:
-          repository: cloud-club/GitOps-AjaeBot-Config
-          branch: main
+          repository: cloud-club/GitOps-AjaeBot-Config@main
           token: ${{ secrets.GITHUB_TOKEN  }}
 
       - name: Update Image Version in the related HelmChart values.yaml
