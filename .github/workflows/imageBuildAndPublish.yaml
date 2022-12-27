@@ -52,40 +52,23 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
       ### Update New image version on Deployment manifest file ###
+
       # manifest file 존재하는 Repository clone and checkout
-      - name: Check out my other private repo
+      - name: Clone and Checkout to config Repository
         uses: actions/checkout@master
         with:
           repository: juyoung810/slack-bot-config
-          token: ${{ secrets.repoPAT  }}
+          token: ${{ secrets.GITHUB_TOKEN  }}
 
-      # yq 사용해 yaml file edit
-      - name: Change config repo values.yaml
-        uses: mikefarah/yq@master
+    - name: Update Image Version in the related HelmChart values.yaml
+        uses: fjogeleit/yaml-update-action@main
         with:
-          cmd: yq -i '.spec.template.spec.containers.[0].image = "${{ steps.meta.outputs.tags }}"' ajae_deployment.yaml
-
-      - name: Pushes to config repository
-        uses: cpina/github-action-push-to-another-repository@main
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.repoPAT }}
-        with:
-          source-directory: "."
-          destination-github-username: "juyoung810"
-          destination-repository-name: "slack-bot-config"
-          user-email: kjy2967@naver.com
-          target-branch: main
-          commit-message: "Change Image version to ${{ steps.meta.outputs.tags }}"
-      # manifest 수정 commit & push
-      # - name: push to config repo
-      #   run: |
-      #     git config --global user.email kjy2967@naver.com
-      #     git config --global user.name juyoung810
-
-      #     git checkout -b ${{ github.actor }}-${{ github.sha }}
-      #     git add ajae_deployment.yaml
-      #     git commit -m "Change Image version to ${{ steps.meta.outputs.tags }}"
-      #     git remote -v
-
-      #     git push --set-upstream origin ${{ github.actor }}-${{ github.sha }}
-      #     git push --set-upstream https://${{ secrets.repoPAT }}@github.com/juyoung810/slack-bot-config ${{ github.actor }}-${{ github.sha }}
+          valueFile: 'ajae-chart/values.yaml'
+          propertyPath: 'image.tag'
+          value: ${{ steps.meta.outputs.image.version }}
+          repository: cloudclub/GitOps-AjaeBot-Config
+          branch: ${{ github.actor }}/${{ steps.meta.outputs.image.version }}
+          targetBranch: main
+          createPR: true
+          message: 'Update Image Version to ${{ steps.meta.outputs.image.version }}'
+          token: ${{ secrets.GITHUB_TOKEN }}
