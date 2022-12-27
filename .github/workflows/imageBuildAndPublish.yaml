@@ -58,7 +58,7 @@ jobs:
         uses: actions/checkout@master
         with:
           repository: cloud-club/GitOps-AjaeBot-Config@main
-          token: ${{ secrets.GITHUB_TOKEN  }}
+          token: ${{ secrets.myPAT }}
 
       - name: Update Image Version in the related HelmChart values.yaml
         uses: fjogeleit/yaml-update-action@main
@@ -71,4 +71,4 @@ jobs:
           targetBranch: main
           createPR: true
           message: "Update Image Version to ${{ steps.meta.outputs.image.version }}"
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.myPAT }}
