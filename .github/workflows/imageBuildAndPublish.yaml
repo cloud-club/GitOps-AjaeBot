@@ -57,7 +57,7 @@ jobs:
       - name: Clone and Checkout to config Repository
         uses: actions/checkout@master
         with:
-          repository: juyoung810/slack-bot-config
+          repository: cloud-club/GitOps-AjaeBot-Config
           token: ${{ secrets.GITHUB_TOKEN  }}
 
       - name: Update Image Version in the related HelmChart values.yaml
