@@ -65,10 +65,10 @@ jobs:
         with:
           valueFile: "ajae-chart/values.yaml"
           propertyPath: "image.tag"
-          value: ${{ steps.meta.outputs.image.version }}
+          value: ${{ steps.meta.outputs.version }}
           repository: cloud-club/GitOps-AjaeBot-Config
-          branch: ${{ github.actor }}/${{ steps.meta.outputs.image.version }}
+          branch: ${{ github.actor }}/${{ steps.meta.outputs.version  }}
           targetBranch: main
           createPR: true
-          message: "Update Image Version to ${{ steps.meta.outputs.image.version }}"
+          message: "Update Image Version to ${{ steps.meta.outputs.version  }}"
           token: ${{ secrets.repoPAT }}
