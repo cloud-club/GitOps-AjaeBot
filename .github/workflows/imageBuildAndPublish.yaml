@@ -57,8 +57,9 @@ jobs:
       - name: Clone and Checkout to config Repository
         uses: actions/checkout@v3
         with:
-          repository: juyoung810/slack-bot-config@helm
+          repository: juyoung810/slack-bot-config
           token: ${{ secrets.repoPAT }}
+          path: helm
 
       - name: check
         run: |
