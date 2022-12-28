@@ -41,17 +41,17 @@ jobs:
             type=sha
             type=semver,pattern={{version}}
 
-      # - name: Build and push Docker image
-      #   id: build
-      #   uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
-      #   with:
-      #     context: .
-      #     file: Dockerfile # repository 기준 도커파일 위치
-      #     push: true
-      #     tags: ${{ steps.meta.outputs.tags }}
-      #     labels: ${{ steps.meta.outputs.labels }}
+      - name: Build and push Docker image
+        id: build
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: .
+          file: Dockerfile # repository 기준 도커파일 위치
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
 
-      ### Update New image version on Deployment manifest file ###
+      ### Update New image version on helm value file ###
 
       # manifest file 존재하는 Repository clone and checkout
       - name: Clone and Checkout to config Repository
