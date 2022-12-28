@@ -55,10 +55,11 @@ jobs:
 
       # manifest file 존재하는 Repository clone and checkout
       - name: Clone and Checkout to config Repository
-        uses: actions/checkout@master
+        uses: actions/checkout@v3
         with:
-          repository: cloud-club/GitOps-AjaeBot-Config
+          repository: juyoung810/slack-bot-config.git
           token: ${{ secrets.repoPAT }}
+          path: helm
 
       - name: check
         run: |
@@ -67,10 +68,10 @@ jobs:
       - name: Update Image Version in the related HelmChart values.yaml
         uses: fjogeleit/yaml-update-action@v0.12.3
         with:
-          valueFile: "./ajae-chart/values.yaml"
+          valueFile: "ajae-chart/values.yaml"
           propertyPath: "image.tag"
           value: ${{ steps.meta.outputs.version }}
-          repository: cloud-club/GitOps-AjaeBot-Config
+          repository: juyoung810/slack-bot-config.git
           branch: ${{ github.actor }}/${{ steps.meta.outputs.version  }}
           targetBranch: main
           createPR: true
