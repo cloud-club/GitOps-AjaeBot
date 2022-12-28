@@ -78,3 +78,4 @@ jobs:
           message: "Update Image Version to ${{ steps.meta.outputs.version  }}"
           token: ${{ secrets.repoPAT }}
           workDir: .
+          commitUserName: kjy2967@naver.com
