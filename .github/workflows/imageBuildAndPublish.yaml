@@ -77,4 +77,4 @@ jobs:
           destination-repository-name: "slack-bot-config"
           user-email: kjy2967@naver.com
           target-branch: helm
-        commit-message: "Update Image version to ${{ steps.meta.outputs.version  }}"
+          commit-message: "Update Image version to ${{ steps.meta.outputs.version  }}"
