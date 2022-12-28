@@ -60,6 +60,10 @@ jobs:
           repository: cloud-club/GitOps-AjaeBot-Config
           token: ${{ secrets.repoPAT }}
 
+      - name: check
+        run: |
+          ls
+
       - name: Update Image Version in the related HelmChart values.yaml
         uses: fjogeleit/yaml-update-action@main
         with:
