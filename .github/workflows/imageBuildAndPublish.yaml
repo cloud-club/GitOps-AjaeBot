@@ -57,9 +57,8 @@ jobs:
       - name: Clone and Checkout to config Repository
         uses: actions/checkout@v3
         with:
-          repository: juyoung810/slack-bot-config.git
+          repository: juyoung810/slack-bot-config@helm
           token: ${{ secrets.repoPAT }}
-          path: helm
 
       - name: check
         run: |
@@ -71,7 +70,7 @@ jobs:
           valueFile: "ajae-chart/values.yaml"
           propertyPath: "image.tag"
           value: ${{ steps.meta.outputs.version }}
-          repository: juyoung810/slack-bot-config.git
+          repository: juyoung810/slack-bot-config
           branch: ${{ github.actor }}/${{ steps.meta.outputs.version  }}
           targetBranch: main
           createPR: true
