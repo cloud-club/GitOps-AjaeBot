@@ -2,7 +2,7 @@ name: Create and publish a Docker image
 
 on:
   push: # PUSH & PR merge 될 경우
-    branches: ["main"] # juya branch 로 push 발생할 경우
+    branches: ["juya"] # juya branch 로 push 발생할 경우
   # workflow trigger button
   workflow_dispatch:
 
@@ -33,13 +33,47 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          flavor: latest=true # latest tag 달기
+          # 가장 최신 image 에 latest tag 달기
+          #          flavor: |
+          #            latest=true
+          # Git short commit, use git version tag
+          tags: |
+            type=sha
+            type=semver,pattern={{version}}
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+      # - name: Build and push Docker image
+      #   id: build
+      #   uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+      #   with:
+      #     context: .
+      #     file: Dockerfile # repository 기준 도커파일 위치
+      #     push: true
+      #     tags: ${{ steps.meta.outputs.tags }}
+      #     labels: ${{ steps.meta.outputs.labels }}
+
+      ### Update New image version on Deployment manifest file ###
+
+      # manifest file 존재하는 Repository clone and checkout
+      - name: Clone and Checkout to config Repository
+        uses: actions/checkout@v3
         with:
-          context: .
-          file: Dockerfile # repository 기준 도커파일 위치
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          repository: cloud-club/GitOps-AjaeBot-Config
+          token: ${{ secrets.repoPAT }}
+
+      #yq 사용해 yaml file edit
+      - name: Change config repo values.yaml
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq -i '.image.tag = "${{ steps.meta.outputs.version }}"' ajae-chart/values.yaml
+
+      - name: Pushes to config repository
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.repoPAT }}
+        with:
+          source-directory: "."
+          destination-github-username: "cloud-club"
+          destination-repository-name: "GitOps-AjaeBot-Config"
+          user-email: kjy2967@naver.com
+          target-branch: main
+          commit-message: "Update Image version to ${{ steps.meta.outputs.version  }}"
