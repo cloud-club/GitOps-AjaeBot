@@ -67,7 +67,7 @@ jobs:
       - name: Update Image Version in the related HelmChart values.yaml
         uses: fjogeleit/yaml-update-action@main
         with:
-          valueFile: "ajae-chart/values.yaml"
+          valueFile: "./ajae-chart/values.yaml"
           propertyPath: "image.tag"
           value: ${{ steps.meta.outputs.version }}
           repository: cloud-club/GitOps-AjaeBot-Config
