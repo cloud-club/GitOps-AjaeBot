@@ -57,9 +57,8 @@ jobs:
       - name: Clone and Checkout to config Repository
         uses: actions/checkout@v3
         with:
-          repository: juyoung810/slack-bot-config
+          repository: cloud-club/GitOps-AjaeBot-Config
           token: ${{ secrets.repoPAT }}
-          ref: helm
 
       #yq 사용해 yaml file edit
       - name: Change config repo values.yaml
@@ -73,8 +72,8 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.repoPAT }}
         with:
           source-directory: "."
-          destination-github-username: "juyoung810"
-          destination-repository-name: "slack-bot-config"
+          destination-github-username: "cloud-club"
+          destination-repository-name: "GitOps-AjaeBot-Config"
           user-email: kjy2967@naver.com
-          target-branch: helm
+          target-branch: main
           commit-message: "Update Image version to ${{ steps.meta.outputs.version  }}"
