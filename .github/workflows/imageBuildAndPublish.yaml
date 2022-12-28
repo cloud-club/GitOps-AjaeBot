@@ -76,3 +76,4 @@ jobs:
           createPR: true
           message: "Update Image Version to ${{ steps.meta.outputs.version  }}"
           token: ${{ secrets.repoPAT }}
+          workDir: .
