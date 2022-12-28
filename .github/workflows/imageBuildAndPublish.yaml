@@ -59,7 +59,7 @@ jobs:
         with:
           repository: juyoung810/slack-bot-config
           token: ${{ secrets.repoPAT }}
-          path: helm
+          ref: helm
 
       - name: check
         run: |
