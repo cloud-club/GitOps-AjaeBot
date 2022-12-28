@@ -61,32 +61,20 @@ jobs:
           token: ${{ secrets.repoPAT }}
           ref: helm
 
-      - name: Update Image Version in the related HelmChart values.yaml
-        uses: fjogeleit/yaml-update-action@v0.12.3
+      #yq 사용해 yaml file edit
+      - name: Change config repo values.yaml
+        uses: mikefarah/yq@master
         with:
-          valueFile: "ajae-chart/values.yaml"
-          propertyPath: ".image.tag"
-          value: ${{ steps.meta.outputs.version }}
-          repository: juyoung810/slack-bot-config
-          branch: ${{ github.actor }}/${{ steps.meta.outputs.version  }}
-          targetBranch: main
-          createPR: true
-          message: "Update Image Version to ${{ steps.meta.outputs.version  }}"
-          token: ${{ secrets.repoPAT }}
-      # yq 사용해 yaml file edit
-      # - name: Change config repo values.yaml
-      #   uses: mikefarah/yq@master
-      #   with:
-      #     cmd: yq -i 'image.tag = "${{ steps.meta.outputs.version }}"' ./ajae-chart/values.yaml
+          cmd: yq -i '.image.tag = "${{ steps.meta.outputs.version }}"' ajae-chart/values.yaml
 
-      # - name: Pushes to config repository
-      #   uses: cpina/github-action-push-to-another-repository@main
-      #   env:
-      #     API_TOKEN_GITHUB: ${{ secrets.repoPAT }}
-      #   with:
-      #     source-directory: "."
-      #     destination-github-username: "juyoung810"
-      #     destination-repository-name: "slack-bot-config"
-      #     user-email: kjy2967@naver.com
-      #     target-branch: helm
-      #     commit-message: "Update Image version to ${{ steps.meta.outputs.version  }}"
+      - name: Pushes to config repository
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.repoPAT }}
+        with:
+          source-directory: "."
+          destination-github-username: "juyoung810"
+          destination-repository-name: "slack-bot-config"
+          user-email: kjy2967@naver.com
+          target-branch: helm
+          commit-message: "Update Image version to ${{ steps.meta.outputs.version  }}"
