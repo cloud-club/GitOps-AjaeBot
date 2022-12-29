@@ -34,8 +34,8 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           # 가장 최신 image 에 latest tag 달기
-          flavor: |
-            latest=true
+#          flavor: |
+#            latest=true
           # Git short commit, use git version tag
           tags: |
             type=sha
