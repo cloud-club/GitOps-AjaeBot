@@ -3,7 +3,7 @@
 
 Cloub Club 2기 시즌2  **Git깔 나는 Ops** 팀의 CI/CD 파이프라인 구축기
 
-- [프로젝트 진행 노션](https://www.notion.so/cloudclub/Git-Ops-c669d76dfbfe4cc781a2be58e599623d)
+- [프로젝트 진행 노션](https://cloudclub.notion.site/Git-Ops-c669d76dfbfe4cc781a2be58e599623d)
 - [최종 발표 영상](https://youtu.be/PoSEdVg2cFQ)
 
 ## 프로젝트 소개 👋
