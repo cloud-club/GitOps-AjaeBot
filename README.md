@@ -60,3 +60,5 @@ Cloub Club 2기 시즌2  **Git깔 나는 Ops** 팀의 CI/CD 파이프라인 구�
 
 
 <!-- Security scan triggered at 2025-09-02 16:16:54 -->
+
+<!-- Security scan triggered at 2025-09-02 17:03:59 -->
