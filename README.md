@@ -57,3 +57,6 @@ Cloub Club 2기 시즌2  **Git깔 나는 Ops** 팀의 CI/CD 파이프라인 구�
 <img src="https://user-images.githubusercontent.com/57140735/217548014-b5efebbc-a29c-4616-bb4c-0096f391ddd3.png" width="300px" height="400px" >
 <img src="https://user-images.githubusercontent.com/57140735/217548084-7d4937cc-c6e9-4fb5-9285-57d3d6bd4a8a.png" width="300px" height="400px" >
 </p>
+
+
+<!-- Security scan triggered at 2025-09-02 16:16:54 -->
